@@ -14,20 +14,21 @@ const Shop = () => {
     }, [])
 
     useEffect(() => {
-        console.log('Local Storage first line', products)
-        const storeCart = getStorageCart()
-        const sevedCart = [];
+        const storeCart = getStorageCart();
+        const savedCart = [];
         for (const id in storeCart) {
-            // console.log(id)
-            const AddedProducts = products.find(product => product.id === id)
-            if (AddedProducts) {
-                const quantity = storeCart[id]
-                AddedProducts.quantity = quantity;
-                sevedCart.push(AddedProducts);
+            const addedProduct = products.find(product => product.id === id)
+            if (addedProduct) {
+                const quantity = storeCart[id];
+                addedProduct.quantity = quantity;
+                savedCart.push(addedProduct);
+
             }
+
         }
-        setCart(sevedCart);
+        setCart(savedCart);
     }, [products])
+
     /* btn add for count shopin products list number for buy */
     const handlerAddToCart = (product) => {
         console.log(product)
