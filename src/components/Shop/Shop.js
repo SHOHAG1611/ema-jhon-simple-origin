@@ -30,11 +30,20 @@ const Shop = () => {
     }, [products])
 
     /* btn add for count shopin products list number for buy */
-    const handlerAddToCart = (product) => {
-        console.log(product)
-        const newCart = [...cart, product]
+    const handlerAddToCart = (selactedProduct) => {
+        let newCart = [];
+        const exists = cart.find(product => product.id === selactedProduct.id);
+        if (!exists) {
+            selactedProduct.quantity = 1;
+            newCart = [...cart, selactedProduct];
+        }
+        else {
+            const rest = cart.filter(product => product.id !== selactedProduct.id);
+            exists.quantity = exists.quantity + 1;
+            newCart = [...rest, exists]
+        }
         setCart(newCart)
-        addToDb(product.id)
+        addToDb(selactedProduct.id)
     }
     return (
         <div className='mainStyle'>
